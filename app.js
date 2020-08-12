@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/',(req,res)=>{
   res.render('welcome');
 })
-var token = "xxxxx"; // enter your token here
+var token = "xxxxx"; // enter your token here to get this app going
 app.get('/refreshToken',(req,res)=>{
   axios.get('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&&access_token='+token).then(function(response){
     
