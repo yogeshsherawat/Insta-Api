@@ -8,9 +8,18 @@ const bodyParser = require('body-parser');
 const port =  3001;
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.get('/',(req,res)=>{
-    axios.get('https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,timestamp&access_token={your_insta_access_user_token}');
+  res.render('welcome');
+})
+
+app.get('/auth/instagram',(req,res)=>{
+
+})
+
+
+
+app.get('/insta',(req,res)=>{
+    axios.get('https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,timestamp&access_token=IGQVJWaWE0VnJmVXloei00anZAabndXTW05b3dDdWFzUWpQcmhBZA3RXVTk4NV9VMFl1TmV0R2dQbW5TR1lGTzg1bktsMFhZASmtkSXMtUDd4bTNpTUI5NmFOX0NoQXVlUW1VcW9haDJ3')
   .then(function (response) {
     // handle success
     //console.log(response);
