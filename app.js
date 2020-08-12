@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/',(req,res)=>{
   res.render('welcome');
 })
-var token = 'IGQVJWWjhheVo5TTVkMV91U2UyalgtZAjNBVHRWVUI0bG52bHVHenhqakdvN2lIeG1RenhlSkg5SGh0RTA4MlE3a1NTU0hkc29WSkxiN0FPbWVua0k1bmV1WkplUjhhY1d0S2ZADcWRR';
+var token = "xxxxx"; // enter your token here
 app.get('/refreshToken',(req,res)=>{
   axios.get('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&&access_token='+token).then(function(response){
     
