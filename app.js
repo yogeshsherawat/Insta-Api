@@ -11,20 +11,36 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/',(req,res)=>{
   res.render('welcome');
 })
-
-app.get('/auth/instagram',(req,res)=>{
-
+var token = 'IGQVJWWjhheVo5TTVkMV91U2UyalgtZAjNBVHRWVUI0bG52bHVHenhqakdvN2lIeG1RenhlSkg5SGh0RTA4MlE3a1NTU0hkc29WSkxiN0FPbWVua0k1bmV1WkplUjhhY1d0S2ZADcWRR';
+app.get('/refreshToken',(req,res)=>{
+  axios.get('https://graph.instagram.com/refresh_access_token?grant_type=ig_refresh_token&&access_token='+token).then(function(response){
+    
+    let data = response.data;
+    //console.log(data);
+    let newToken = data.access_token;
+    let expire  = data.expires_in;
+    console.log(expire);
+    console.log("--------------------------");
+    console.log(newToken); 
+    console.log("--------------------");
+    token = newToken;
+    res.redirect("/");
+  }).catch(function(error){
+    console.log(error);
+  })
 })
 
 
 
 app.get('/insta',(req,res)=>{
-    axios.get('https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,timestamp&access_token=IGQVJWaWE0VnJmVXloei00anZAabndXTW05b3dDdWFzUWpQcmhBZA3RXVTk4NV9VMFl1TmV0R2dQbW5TR1lGTzg1bktsMFhZASmtkSXMtUDd4bTNpTUI5NmFOX0NoQXVlUW1VcW9haDJ3')
+    axios.get('https://graph.instagram.com/me/media?fields=id,media_type,media_url,username,timestamp&access_token='+token)
   .then(function (response) {
+    console.log(token);
     // handle success
     //console.log(response);
     //console.log(response);
     let data = response.data.data;
+    //console.log(response.data.data);
     let toSendData = [];
     for(i=0;i<data.length;i++){
     
@@ -32,7 +48,7 @@ app.get('/insta',(req,res)=>{
       let url = data[i].media_url;
       let index = (i+1)%4;
       index=index===0?4:index;
-      console.log(index);
+      //console.log(index);
       const obj = {type:type,url:url,index:index};
       toSendData.push(obj);
     }
